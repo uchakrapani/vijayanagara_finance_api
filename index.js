@@ -3,6 +3,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const locationRoute = require("./routes/location");
 const adminRoute = require("./routes/admin");
+const ErrorLog = require('./models/ErrorLog');
+const errorLogRoutes = require('./routes/errorLog'); 
 
 const app = express();
 
@@ -25,17 +27,14 @@ app.get("/", (req, res) => {
 // Route for location
 app.use("/area", locationRoute);
 app.use("/admin", adminRoute);
+app.use('/errorlogs', errorLogRoutes); 
 
-// Error Handling Middleware
-app.use((error, req, res, next) => {
-    // Log the error (ensure you define the logging mechanism)
-    console.error("Error occurred:", error.message);
-    // Optionally, save error details in your database (if you have an error model)
-    // For example:
-    // const errLog = new APIError({ message: error.message, stack: error.stack });
-    // errLog.save().then(() => console.log("Error logged in DB"));
-
-    res.status(500).json({ error: "Oops! API failed to respond to your request." });
+// Error logging middleware
+app.use((err, req, res, next) => {
+    const errorLog = new ErrorLog({ message: err.message, stack: err.stack });
+    errorLog.save().then(() => console.log('Error logged'));
+    res.status(500).json({ message: 'An error occurred, it has been logged.' });
+    next();
 });
 
 // Start the server
