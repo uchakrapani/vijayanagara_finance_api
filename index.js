@@ -39,7 +39,7 @@ app.use((error, req, res, next) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 8181;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`API is running at Port ${PORT} and URL http://localhost:${PORT}/`);
 });
