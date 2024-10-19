@@ -3,6 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const locationRoute = require("./routes/location");
 const adminRoute = require("./routes/admin");
+const loanUserRoute = require("./routes/loanuser");
 const ErrorLog = require('./models/ErrorLog');
 const errorLogRoutes = require('./routes/errorLog'); 
 
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 // Route for location
 app.use("/area", locationRoute);
 app.use("/admin", adminRoute);
+app.use("/loanuser", loanUserRoute);
 app.use('/errorlogs', errorLogRoutes); 
 
 // Error logging middleware
