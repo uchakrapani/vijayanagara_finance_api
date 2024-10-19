@@ -34,17 +34,26 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-// Update a admin
+// Update an admin
 router.put('/:id', async (req, res, next) => {
     try {
         req.body.dateupdated = Date.now(); // Update the dateupdated field
+
+        // Check if password needs to be hashed
+        if (req.body.password) {
+            const salt = await bcrypt.genSalt(10);
+            req.body.password = await bcrypt.hash(req.body.password, salt);
+        }
+
         const admin = await Admin.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!admin) return res.status(404).json({ message: 'Admin not found' });
+        
         res.json(admin);
     } catch (err) {
         next(err);
     }
 });
+
 
 // Delete a admin
 router.delete('/:id', async (req, res, next) => {

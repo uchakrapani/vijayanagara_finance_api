@@ -29,14 +29,6 @@ adminSchema.pre('save', async function (next) {
     }
 });
 
-// Pre-save hook to automatically set 'dateupdated' before updating
-adminSchema.pre('save', function (next) {
-    if (!this.isNew) {
-        this.dateupdated = Date.now();
-    }
-    next();
-});
-
 // Method to compare input password with the hashed password
 adminSchema.methods.comparePassword = async function (inputPassword) {
     return bcrypt.compare(inputPassword, this.password);
