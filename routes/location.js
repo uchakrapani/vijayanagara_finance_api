@@ -17,7 +17,7 @@ router.post('/', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
     try {
         const locations = await Location.find().lean();  // Use async/await and lean() for performance
-        res.status(200).json({ data: locations });
+        res.status(200).json(locations);
     } catch (err) {
         next(err);  // Forward the error to the error-handling middleware
     }

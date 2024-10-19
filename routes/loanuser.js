@@ -16,8 +16,8 @@ router.post('/', async (req, res, next) => {
 // Get All Locations
 router.get('/', async (req, res, next) => {
     try {
-        const locations = await LoanUser.find().lean();  // Use async/await and lean() for performance
-        res.status(200).json({ data: locations });
+        const loanuser = await LoanUser.find().lean();  // Use async/await and lean() for performance
+        res.status(200).json(loanuser);
     } catch (err) {
         next(err);  // Forward the error to the error-handling middleware
     }
