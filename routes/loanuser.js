@@ -56,19 +56,28 @@ router.delete('/:id', async (req, res, next) => {
     }
 });
 
-// Check if emailId, phone, pancard, or aadhar already exists
+// Route to check if a user with email, phone, pancard, or aadhar exists
 router.get('/check', async (req, res, next) => {
-    const { emailId, phone, pancard, aadhar } = req.query;
-
     try {
-        const emailExists = await LoanUser.exists({ emailId });
-        const phoneExists = await LoanUser.exists({ phone });
-        const pancardExists = await LoanUser.exists({ pancard });
-        const aadharExists = await LoanUser.exists({ aadhar });
+        const { emailId, phone, pancard, aadhar } = req.query;
 
-        res.json({ emailExists, phoneExists, pancardExists, aadharExists });
+        const existingUser = await LoanUser.findOne({
+            $or: [
+                { emailId: emailId },
+                { phone: phone },
+                { pancard: pancard },
+                { aadhar: aadhar }
+            ]
+        });
+
+        res.status(200).json({
+            emailExists: !!existingUser && existingUser.emailId === emailId,
+            phoneExists: !!existingUser && existingUser.phone === phone,
+            pancardExists: !!existingUser && existingUser.pancard === pancard,
+            aadharExists: !!existingUser && existingUser.aadhar === aadhar
+        });
     } catch (err) {
-        next(err); // Forward the error to the error-handling middleware
+        next(err);
     }
 });
 
