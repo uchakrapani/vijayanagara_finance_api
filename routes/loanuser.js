@@ -56,4 +56,20 @@ router.delete('/:id', async (req, res, next) => {
     }
 });
 
+// Check if emailId, phone, pancard, or aadhar already exists
+router.get('/check', async (req, res, next) => {
+    const { emailId, phone, pancard, aadhar } = req.query;
+
+    try {
+        const emailExists = await LoanUser.exists({ emailId });
+        const phoneExists = await LoanUser.exists({ phone });
+        const pancardExists = await LoanUser.exists({ pancard });
+        const aadharExists = await LoanUser.exists({ aadhar });
+
+        res.json({ emailExists, phoneExists, pancardExists, aadharExists });
+    } catch (err) {
+        next(err); // Forward the error to the error-handling middleware
+    }
+});
+
 module.exports = router;
