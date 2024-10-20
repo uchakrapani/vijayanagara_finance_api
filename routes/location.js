@@ -7,7 +7,7 @@ router.post('/', async (req, res, next) => {
     try {
         const locationData = new Location(req.body);  // Use req.body directly
         await locationData.save();  // Use async/await for save operation
-        res.status(201).json({ message: "New Location Created Successfully.", data: locationData });
+        res.status(201).json(locationData);
     } catch (err) {
         next(err);  // Forward the error to the error-handling middleware
     }
