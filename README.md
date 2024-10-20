@@ -1,15 +1,3 @@
-# Replace <your-username> with your GitHub username
-# Replace <repository-name> with your desired repository name
-
-# Create a new directory for the project
-mkdir vijayanagara_finance_api
-cd vijayanagara_finance_api
-
-# Initialize a new git repository
-git init
-
-# Create a README.md file with the content
-cat <<EOF > README.md
 # Vijayanagara Finance API
 
 ## Getting Started
@@ -119,16 +107,3 @@ For any inquiries or support, please reach out to us at:
 - **Email:** grievance@vijayanagarafinance.com
 - **Phone:** +91 84482-98527
 EOF
-
-# Stage the changes
-git add README.md
-
-# Commit the changes
-git commit -m "Initial commit with README"
-
-# Create a new GitHub repository (uncomment the next line if you want to create a new repo)
-# gh repo create <repository-name> --public --source=.
-
-# Push the changes to GitHub (make sure to replace <your-username> and <repository-name>)
-git remote add origin https://github.com/<your-username>/<repository-name>.git
-git push -u origin master
