@@ -4,16 +4,16 @@ const mongoose = require("mongoose");
 const loanUserSchema = mongoose.Schema({
     reference_no: String,
     fullName: String,
-    emailId: String,
-    phone: String,
-    pancard: String,
-    aadhar: String,
+    emailId: { type: String, unique: true }, // Ensures emailId is unique
+    phone: { type: String, unique: true },   // Ensures phone is unique
+    pancard: { type: String, unique: true }, // Ensures pancard is unique
+    aadhar: { type: String, unique: true },  // Ensures aadhar is unique
     salary: String,
     loan_amount_req: String,
     city: String,
     state: String,
     zipcode: String,
-    status: { type: String, enum: ['submitted', 'document-verification','in-progress','docs-required','approved','rejected'], required: true },
+    status: { type: String, enum: ['submitted', 'document-verification', 'in-progress', 'docs-required', 'approved', 'rejected'], required: true },
     datecreated: { type: Date, default: Date.now },
     dateupdated: { type: Date, default: Date.now }
 });
