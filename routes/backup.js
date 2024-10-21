@@ -13,7 +13,7 @@ if (!fs.existsSync(BACKUP_DIR)){
 }
 
 // POST: Backup MongoDB data to a text file
-router.post('/create', async (req, res) => {
+router.post('/create', async (req, res,next) => {
     try {
         // Get the list of collections in the database
         const collections = await mongoose.connection.db.listCollections().toArray();
@@ -38,8 +38,7 @@ router.post('/create', async (req, res) => {
             res.status(200).json({ message: 'Backup created successfully!', filePath });
         });
     } catch (error) {
-        console.error('Error during backup:', error);
-        res.status(500).json({ message: 'Error creating backup.' });
+       next(error);
     }
 });
 
