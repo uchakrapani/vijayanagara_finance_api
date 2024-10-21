@@ -1,92 +1,48 @@
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../../AuthContext';
-import { Form, Button, Alert, Container, Row, Col, Spinner } from 'react-bootstrap'; // Import Spinner
-import { useNavigate } from 'react-router-dom';
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const locationRoute = require("./routes/location");
+const adminRoute = require("./routes/admin");
+const loanUserRoute = require("./routes/loanuser");
+const contactRoute = require("./routes/contact");
+const ErrorLog = require('./models/ErrorLog');
+const errorLogRoutes = require('./routes/errorLog'); 
 
-const Login = () => {
-  const [loginId, setLoginId] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [loading, setLoading] = useState(false); // Loading state
-  const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
+const app = express();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true); // Start loading
+// Middleware
+app.use(express.json());
+app.use(cors());
 
-    const loginData = {
-      loginid: loginId,
-      password: password,
-    };
+// Connect to MongoDB
+mongoose.connect("mongodb+srv://admin:admin@learningcluster.yywhd.mongodb.net/lbcvfloandb")
+    .then(() => console.log("MongoDB Connected Successfully!"))
+    .catch((error) => console.error("MongoDB connection error:", error));
 
-    try {
-      const response = await fetch('https://vijayanagara-finance-api.vercel.app/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
+// Health Check Route
+app.get("/", (req, res) => {
+    res.status(200).json({
+        apiStatus: "Last bench coder Vijanagara finance API is running successfully"
+    });
+});
 
-      if (response.ok) {
-        login(loginData);
-        navigate('/dashboard');
-      } else {
-        const result = await response.json();
-        setErrorMessage(result.message || 'Login failed. Please check your credentials.');
-      }
-    } catch (error) {
-      setErrorMessage('Error connecting to the server. Please try again later.');
-    } finally {
-      setLoading(false); // Stop loading
-    }
-  };
+// Route for location
+app.use("/area", locationRoute);
+app.use("/admin", adminRoute);
+app.use("/loanuser", loanUserRoute);
+app.use("/contact", contactRoute);
+app.use('/errorlogs', errorLogRoutes); 
 
-  return (
-    <Container className="mt-5 pt-4">
-      <Row className="justify-content-md-center">
-        <Col md={6}>
-          <h2>Login</h2>
-          {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-          <Form onSubmit={handleLogin}>
-            <Form.Group className="mb-3" controlId="formLoginId">
-              <Form.Label>Login ID</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter login ID"
-                value={loginId}
-                onChange={(e) => setLoginId(e.target.value)}
-                required
-              />
-            </Form.Group>
+// Error logging middleware
+app.use((err, req, res, next) => {
+    const errorLog = new ErrorLog({ message: err.message, stack: err.stack });
+    errorLog.save().then(() => console.log('Error logged'));
+    res.status(500).json({ message: 'An error occurred, it has been logged.' });
+    next();
+});
 
-            <Form.Group className="mb-3" controlId="formPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit" disabled={loading}>
-              {loading ? (
-                <>
-                  <Spinner animation="border" size="sm" /> {/* Spinner */}
-                  {' Loading...'}
-                </>
-              ) : (
-                'Login'
-              )}
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
-  );
-};
-
-export default Login;
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`API is running at Port ${PORT} and URL http://localhost:${PORT}/`);
+});
