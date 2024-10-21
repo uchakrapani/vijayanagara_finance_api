@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 // Define the LoanUser schema
 const loanUserSchema = mongoose.Schema({
@@ -14,13 +15,25 @@ const loanUserSchema = mongoose.Schema({
     state: String,
     zipcode: String,
     status: { type: String, enum: ['submitted', 'document-verification', 'in-progress', 'docs-required', 'approved', 'rejected'], required: true },
+    loginId: { type: String, unique: true, required: true }, // Unique login ID
+    password: { type: String, required: true }, // Password
     datecreated: { type: Date, default: Date.now },
     dateupdated: { type: Date, default: Date.now }
 });
 
-// Pre-save hook to generate the reference_no before saving the document
+// Pre-save hook to hash the password before saving
 loanUserSchema.pre('save', async function (next) {
     const loanUser = this;
+
+    // Only hash the password if it has been modified or is new
+    if (loanUser.isModified('password')) {
+        try {
+            const salt = await bcrypt.genSalt(10); // Generate a salt
+            loanUser.password = await bcrypt.hash(loanUser.password, salt); // Hash the password
+        } catch (error) {
+            return next(error); // Pass error to the next middleware
+        }
+    }
 
     // Only generate a reference number if it doesn't exist yet
     if (!loanUser.reference_no) {
