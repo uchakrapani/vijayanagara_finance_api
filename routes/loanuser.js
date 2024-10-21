@@ -56,4 +56,33 @@ router.delete('/:id', async (req, res, next) => {
     }
 });
 
+// Login Endpoint
+router.post('/login', async (req, res, next) => {
+    try {
+        const { loginId, password } = req.body;
+
+        // Ensure loginId and password are provided
+        if (!loginId || !password) {
+            return res.status(400).json({ message: 'Login ID and password are required.' });
+        }
+
+        // Find user by loginId
+        const user = await LoanUser.findOne({ loginId });
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid login ID or password.' });
+        }
+
+        // Compare provided password with stored hashed password
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
+            return res.status(401).json({ message: 'Invalid login ID or password.' });
+        }
+
+        // If successful, you can return a success message or token
+        res.status(200).json({ message: 'Login successful!', user });
+    } catch (err) {
+        next(err);
+    }
+});
+
 module.exports = router;
