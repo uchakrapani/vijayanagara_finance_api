@@ -7,8 +7,13 @@ const path = require('path');
 const router = express.Router();
 const BACKUP_DIR = path.join(__dirname, '../backups'); // Directory to store backups
 
-// Backup MongoDB data to a text file
-router.get('/backup', async (req, res) => {
+// Ensure the backup directory exists
+if (!fs.existsSync(BACKUP_DIR)){
+    fs.mkdirSync(BACKUP_DIR);
+}
+
+// POST: Backup MongoDB data to a text file
+router.post('/create', async (req, res) => {
     try {
         // Get the list of collections in the database
         const collections = await mongoose.connection.db.listCollections().toArray();
@@ -38,7 +43,7 @@ router.get('/backup', async (req, res) => {
     }
 });
 
-// Get all backup files
+// GET: Get all backup files
 router.get('/', (req, res) => {
     fs.readdir(BACKUP_DIR, (err, files) => {
         if (err) {
