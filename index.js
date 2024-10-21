@@ -33,7 +33,7 @@ app.use("/admin", adminRoute);
 app.use("/loanuser", loanUserRoute);
 app.use("/contact", contactRoute);
 app.use('/errorlogs', errorLogRoutes); 
-app.use('/kyc',loanUserKycRoute);
+app.use('/userkyc',loanUserKycRoute);
 
 // Error logging middleware
 app.use((err, req, res, next) => {
