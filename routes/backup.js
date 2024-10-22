@@ -48,4 +48,35 @@ router.post('/', async (req, res) => {
     }
 });
 
+// GET route to list all backup files
+router.get('/', (req, res) => {
+    fs.readdir(backupFolder, (err, files) => {
+        if (err) {
+            console.error(`Error reading backup directory: ${err.message}`);
+            return res.status(500).json({ message: 'Failed to list backup files', error: err.message });
+        }
+
+        // Filter for directories (backup files are created in folders)
+        const backupFiles = files.map(file => {
+            return {
+                name: file,
+                path: path.join(backupFolder, file), // Full path to the backup
+            };
+        });
+
+        res.status(200).json(backupFiles); // Return the list of backup files
+    });
+});
+
+// Serve static files for download
+router.get('/download/:filename', (req, res) => {
+    const filePath = path.join(backupFolder, req.params.filename);
+    res.download(filePath, (err) => {
+        if (err) {
+            console.error(`Error downloading file: ${err.message}`);
+            res.status(500).send('Could not download the file.');
+        }
+    });
+});
+
 module.exports = router;
