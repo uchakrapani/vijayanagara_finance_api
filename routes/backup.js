@@ -10,7 +10,7 @@ const dbName = 'lbcvfloandb'; // Replace with your actual database name
 const backupFolder = path.join(__dirname, '../backups'); // Backup folder in the root directory
 
 // Define the backup route
-router.post('/backup', async (req, res) => {
+router.post('/', async (req, res) => {
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-'); // Create a timestamp for the file name
     const logFile = path.join(backupFolder, `backup-log-${timestamp}.txt`); // Log file path
 
