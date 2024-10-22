@@ -1,63 +1,51 @@
-// routes/backup.js
 const express = require('express');
-const mongoose = require('mongoose');
+const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-
+const { MongoClient } = require('mongodb'); // Import MongoClient
 const router = express.Router();
-const BACKUP_DIR = path.join(__dirname, '../backups'); // Directory to store backups
 
-// Ensure the backup directory exists
-if (!fs.existsSync(BACKUP_DIR)){
-    fs.mkdirSync(BACKUP_DIR);
-}
+const uri = 'your_mongodb_connection_string'; // Replace with your MongoDB connection string
+const dbName = 'lbcvfloandb'; // Replace with your actual database name
+const backupFolder = path.join(__dirname, '../backups'); // Backup folder in the root directory
 
-// POST: Backup MongoDB data to a text file
-router.post('/create', async (req, res,next) => {
+// Define the backup route
+router.post('/backup', async (req, res) => {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-'); // Create a timestamp for the file name
+    const logFile = path.join(backupFolder, `backup-log-${timestamp}.txt`); // Log file path
+
+    // Ensure the backup folder exists
+    fs.mkdirSync(backupFolder, { recursive: true });
+
+    // Connect to MongoDB
+    const client = new MongoClient(uri);
+
     try {
-        // Get the list of collections in the database
-        const collections = await mongoose.connection.db.listCollections().toArray();
-        
-        const backupData = {};
+        await client.connect();
+        const db = client.db(dbName);
+        const collections = await db.listCollections().toArray(); // This verifies the connection and lists collections
 
-        // Loop through each collection and get its data
-        for (const collection of collections) {
-            const data = await mongoose.connection.db.collection(collection.name).find({}).toArray();
-            backupData[collection.name] = data;
-        }
+        // Construct the command to take backup
+        const command = `mongodump --db ${dbName} --out ${backupFolder}`;
 
-        // Define the backup file path
-        const filePath = path.join(BACKUP_DIR, `backup_${Date.now()}.txt`);
-
-        // Write the backup data to a text file
-        fs.writeFile(filePath, JSON.stringify(backupData, null, 2), (err) => {
-            if (err) {
-                console.error('Error writing backup file:', err);
-                return res.status(500).json({ message: 'Error creating backup file.' });
+        // Execute the backup command
+        exec(command, (error, stdout, stderr) => {
+            // Log stdout and stderr to the log file
+            fs.appendFileSync(logFile, `STDOUT:\n${stdout}\n\nSTDERR:\n${stderr}\n`);
+            
+            if (error) {
+                console.error(`Error during backup: ${error.message}`);
+                return res.status(500).json({ message: 'Backup failed', error: error.message });
             }
-            res.status(200).json({ message: 'Backup created successfully!', filePath });
+            
+            res.status(200).json({ message: 'Backup completed successfully', logFile: logFile });
         });
     } catch (error) {
-       next(error);
+        console.error(`MongoDB connection error: ${error.message}`);
+        res.status(500).json({ message: 'Database connection failed', error: error.message });
+    } finally {
+        await client.close(); // Ensure the client is closed after the operation
     }
-});
-
-// GET: Get all backup files
-router.get('/', (req, res) => {
-    fs.readdir(BACKUP_DIR, (err, files) => {
-        if (err) {
-            console.error('Error reading backup directory:', err);
-            return res.status(500).json({ message: 'Error fetching backup files.' });
-        }
-
-        // Filter for only .txt files
-        const backupFiles = files.filter(file => file.endsWith('.txt')).map(file => ({
-            name: file,
-            downloadLink: `${req.protocol}://${req.get('host')}/backups/${file}` // Create download link
-        }));
-
-        res.status(200).json({ backups: backupFiles });
-    });
 });
 
 module.exports = router;
