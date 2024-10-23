@@ -6,6 +6,7 @@ const adminRoute = require("./routes/admin");
 const loanUserRoute = require("./routes/loanuser");
 const contactRoute = require("./routes/contact");
 const backupRoute = require("./routes/backup");
+const loanUserStatusRoute = require("./routes/loanuserstatus");
 const ErrorLog = require('./models/ErrorLog');
 const errorLogRoutes = require('./routes/errorLog'); 
 
@@ -33,6 +34,7 @@ app.use("/admin", adminRoute);
 app.use("/loanuser", loanUserRoute);
 app.use("/contact", contactRoute);
 app.use('/errorlogs', errorLogRoutes); 
+app.use('/loan-status', loanUserStatusRoute); 
 app.use('/backup',backupRoute);
 
 // Error logging middleware
