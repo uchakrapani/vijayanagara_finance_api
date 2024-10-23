@@ -2,7 +2,7 @@ const express = require('express');
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const { MongoClient } = require('mongodb'); // Import MongoClient
+const { MongoClient } = require('mongodb');
 const router = express.Router();
 
 const uri = 'your_mongodb_connection_string'; // Replace with your MongoDB connection string
@@ -23,6 +23,12 @@ router.post('/', async (req, res) => {
     try {
         await client.connect();
         const db = client.db(dbName);
+        
+        // Check if the db object is defined
+        if (!db) {
+            throw new Error('Database connection was not established.');
+        }
+
         const collections = await db.listCollections().toArray(); // This verifies the connection and lists collections
 
         // Construct the command to take backup

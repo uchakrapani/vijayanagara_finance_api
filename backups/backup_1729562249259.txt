@@ -1,0 +1,306 @@
+{
+  "errorlogs": [
+    {
+      "_id": "6714760586b0227f0ad2d500",
+      "message": "Cast to ObjectId failed for value \"check\" (type string) at path \"_id\" for model \"LoanUser\"",
+      "stack": "CastError: Cast to ObjectId failed for value \"check\" (type string) at path \"_id\" for model \"LoanUser\"\n    at SchemaObjectId.cast (/var/task/node_modules/mongoose/lib/schema/objectId.js:250:11)\n    at SchemaType.applySetters (/var/task/node_modules/mongoose/lib/schemaType.js:1236:12)\n    at SchemaType.castForQuery (/var/task/node_modules/mongoose/lib/schemaType.js:1653:17)\n    at cast (/var/task/node_modules/mongoose/lib/cast.js:389:32)\n    at Query.cast (/var/task/node_modules/mongoose/lib/query.js:4868:12)\n    at Query._castConditions (/var/task/node_modules/mongoose/lib/query.js:2265:10)\n    at model.Query._findOne (/var/task/node_modules/mongoose/lib/query.js:2589:8)\n    at model.Query.exec (/var/task/node_modules/mongoose/lib/query.js:4412:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async /var/task/routes/loanuser.js:29:26",
+      "date": "2024-10-20T03:16:21.669Z",
+      "__v": 0
+    },
+    {
+      "_id": "6714764186b0227f0ad2d505",
+      "message": "Cast to ObjectId failed for value \"check\" (type string) at path \"_id\" for model \"LoanUser\"",
+      "stack": "CastError: Cast to ObjectId failed for value \"check\" (type string) at path \"_id\" for model \"LoanUser\"\n    at SchemaObjectId.cast (/var/task/node_modules/mongoose/lib/schema/objectId.js:250:11)\n    at SchemaType.applySetters (/var/task/node_modules/mongoose/lib/schemaType.js:1236:12)\n    at SchemaType.castForQuery (/var/task/node_modules/mongoose/lib/schemaType.js:1653:17)\n    at cast (/var/task/node_modules/mongoose/lib/cast.js:389:32)\n    at Query.cast (/var/task/node_modules/mongoose/lib/query.js:4868:12)\n    at Query._castConditions (/var/task/node_modules/mongoose/lib/query.js:2265:10)\n    at model.Query._findOne (/var/task/node_modules/mongoose/lib/query.js:2589:8)\n    at model.Query.exec (/var/task/node_modules/mongoose/lib/query.js:4412:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async /var/task/routes/loanuser.js:29:26",
+      "date": "2024-10-20T03:17:21.869Z",
+      "__v": 0
+    },
+    {
+      "_id": "671476ec86b0227f0ad2d514",
+      "message": "E11000 duplicate key error collection: lbcvfloandb.loanusers index: emailId_1 dup key: { emailId: \"shraddha@test.com\" }",
+      "stack": "MongoServerError: E11000 duplicate key error collection: lbcvfloandb.loanusers index: emailId_1 dup key: { emailId: \"shraddha@test.com\" }\n    at InsertOneOperation.execute (/var/task/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async tryOperation (/var/task/node_modules/mongodb/lib/operations/execute_operation.js:192:20)\n    at async executeOperation (/var/task/node_modules/mongodb/lib/operations/execute_operation.js:69:16)\n    at async Collection.insertOne (/var/task/node_modules/mongodb/lib/collection.js:154:16)",
+      "date": "2024-10-20T03:20:12.829Z",
+      "__v": 0
+    },
+    {
+      "_id": "671477ee86b0227f0ad2d51c",
+      "message": "E11000 duplicate key error collection: lbcvfloandb.loanusers index: emailId_1 dup key: { emailId: \"shraddha@test.com\" }",
+      "stack": "MongoServerError: E11000 duplicate key error collection: lbcvfloandb.loanusers index: emailId_1 dup key: { emailId: \"shraddha@test.com\" }\n    at InsertOneOperation.execute (/var/task/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async tryOperation (/var/task/node_modules/mongodb/lib/operations/execute_operation.js:192:20)\n    at async executeOperation (/var/task/node_modules/mongodb/lib/operations/execute_operation.js:69:16)\n    at async Collection.insertOne (/var/task/node_modules/mongodb/lib/collection.js:154:16)",
+      "date": "2024-10-20T03:24:30.830Z",
+      "__v": 0
+    },
+    {
+      "_id": "671614e02e8de199372d432e",
+      "message": "Cast to ObjectId failed for value \"login\" (type string) at path \"_id\" for model \"Admin\"",
+      "stack": "CastError: Cast to ObjectId failed for value \"login\" (type string) at path \"_id\" for model \"Admin\"\n    at SchemaObjectId.cast (/var/task/node_modules/mongoose/lib/schema/objectId.js:250:11)\n    at SchemaType.applySetters (/var/task/node_modules/mongoose/lib/schemaType.js:1236:12)\n    at SchemaType.castForQuery (/var/task/node_modules/mongoose/lib/schemaType.js:1653:17)\n    at cast (/var/task/node_modules/mongoose/lib/cast.js:389:32)\n    at Query.cast (/var/task/node_modules/mongoose/lib/query.js:4868:12)\n    at Query._castConditions (/var/task/node_modules/mongoose/lib/query.js:2265:10)\n    at model.Query._findOne (/var/task/node_modules/mongoose/lib/query.js:2589:8)\n    at model.Query.exec (/var/task/node_modules/mongoose/lib/query.js:4412:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async /var/task/routes/admin.js:30:23",
+      "date": "2024-10-21T08:46:24.947Z",
+      "__v": 0
+    },
+    {
+      "_id": "6716706b9f1b1132471a5e26",
+      "message": "E11000 duplicate key error collection: lbcvfloandb.loanusers index: emailId_1 dup key: { emailId: \"swapna@test.com\" }",
+      "stack": "MongoServerError: E11000 duplicate key error collection: lbcvfloandb.loanusers index: emailId_1 dup key: { emailId: \"swapna@test.com\" }\n    at InsertOneOperation.execute (/var/task/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async tryOperation (/var/task/node_modules/mongodb/lib/operations/execute_operation.js:192:20)\n    at async executeOperation (/var/task/node_modules/mongodb/lib/operations/execute_operation.js:69:16)\n    at async Collection.insertOne (/var/task/node_modules/mongodb/lib/collection.js:154:16)",
+      "date": "2024-10-21T15:16:59.272Z",
+      "__v": 0
+    },
+    {
+      "_id": "6717064d2018c7578cb07523",
+      "message": "Cannot read properties of undefined (reading 'listCollections')",
+      "stack": "TypeError: Cannot read properties of undefined (reading 'listCollections')\n    at /var/task/routes/backup.js:19:58\n    at Layer.handle [as handle_request] (/var/task/node_modules/express/lib/router/layer.js:95:5)\n    at next (/var/task/node_modules/express/lib/router/route.js:149:13)\n    at Route.dispatch (/var/task/node_modules/express/lib/router/route.js:119:3)\n    at Layer.handle [as handle_request] (/var/task/node_modules/express/lib/router/layer.js:95:5)\n    at /var/task/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/var/task/node_modules/express/lib/router/index.js:346:12)\n    at next (/var/task/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/var/task/node_modules/express/lib/router/index.js:175:3)\n    at router (/var/task/node_modules/express/lib/router/index.js:47:12)",
+      "date": "2024-10-22T01:56:29.703Z",
+      "__v": 0
+    }
+  ],
+  "locations": [
+    {
+      "_id": "6715c9fcdc8b4e141890775f",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "zipcode": "560001",
+      "status": "active",
+      "datecreated": "2024-10-21T03:26:52.009Z",
+      "dateupdated": "2024-10-21T03:26:52.012Z",
+      "__v": 0
+    },
+    {
+      "_id": "6715ca12dc8b4e1418907761",
+      "city": "Bangalore - Rajaji Nagara",
+      "state": "Karnataka",
+      "zipcode": "560010",
+      "status": "active",
+      "datecreated": "2024-10-21T03:27:14.795Z",
+      "dateupdated": "2024-10-21T03:27:14.795Z",
+      "__v": 0
+    },
+    {
+      "_id": "6715ca46dc8b4e1418907764",
+      "city": "Bangalore - City",
+      "state": "Karnataka",
+      "zipcode": "560002",
+      "status": "active",
+      "datecreated": "2024-10-21T03:28:06.045Z",
+      "dateupdated": "2024-10-21T03:28:06.046Z",
+      "__v": 0
+    },
+    {
+      "_id": "6715ca68dc8b4e1418907766",
+      "city": "Bangalore - Banashankari",
+      "state": "Karnataka",
+      "zipcode": "560050",
+      "status": "active",
+      "datecreated": "2024-10-21T03:28:40.885Z",
+      "dateupdated": "2024-10-21T03:28:40.886Z",
+      "__v": 0
+    },
+    {
+      "_id": "6715ca9cdc8b4e1418907768",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "zipcode": "400001",
+      "status": "active",
+      "datecreated": "2024-10-21T03:29:32.232Z",
+      "dateupdated": "2024-10-21T03:29:32.233Z",
+      "__v": 0
+    },
+    {
+      "_id": "6715caf0dc8b4e141890776b",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "zipcode": "600001",
+      "status": "active",
+      "datecreated": "2024-10-21T03:30:56.320Z",
+      "dateupdated": "2024-10-21T03:30:56.320Z",
+      "__v": 0
+    },
+    {
+      "_id": "6715cb35dc8b4e141890776d",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "zipcode": "500001",
+      "status": "active",
+      "datecreated": "2024-10-21T03:32:05.011Z",
+      "dateupdated": "2024-10-21T03:32:05.011Z",
+      "__v": 0
+    },
+    {
+      "_id": "6716161e2e8de199372d4332",
+      "city": "Bangalore - Yalahanka",
+      "state": "Karnataka",
+      "zipcode": "000000",
+      "status": "in-active",
+      "datecreated": "2024-10-21T08:51:42.255Z",
+      "dateupdated": "2024-10-21T08:51:42.257Z",
+      "__v": 0
+    },
+    {
+      "_id": "671616342e8de199372d4335",
+      "city": "Bellary",
+      "state": "Karnataka",
+      "zipcode": "583201",
+      "status": "in-active",
+      "datecreated": "2024-10-21T08:52:04.214Z",
+      "dateupdated": "2024-10-21T08:52:04.214Z",
+      "__v": 0
+    }
+  ],
+  "loanusers": [
+    {
+      "_id": "67146d65e66347f71190bdfc",
+      "fullName": "chakrapani",
+      "emailId": "chakrapani@test.com",
+      "phone": "87486787345",
+      "pancard": "GGGYH5676K",
+      "aadhar": "765654342345",
+      "salary": "50001",
+      "loan_amount_req": "25000",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "zipcode": "560010",
+      "status": "submitted",
+      "datecreated": "2024-10-20T02:39:33.375Z",
+      "dateupdated": "2024-10-20T02:39:33.585Z",
+      "reference_no": "VFL24021",
+      "__v": 0
+    },
+    {
+      "_id": "6714762e600a2f001c4e1221",
+      "fullName": "John Doe",
+      "emailId": "john.doe@example.com",
+      "phone": "9876543210",
+      "pancard": "ABCDE1234F",
+      "aadhar": "123456789012",
+      "salary": "50000",
+      "loan_amount_req": "200000",
+      "city": "Mumbai",
+      "zipcode": "400001",
+      "status": "submitted",
+      "datecreated": "2024-10-20T03:17:02.146Z",
+      "dateupdated": "2024-10-20T03:17:02.404Z",
+      "reference_no": "VFL240267146d65e66347f71190bdfc1",
+      "__v": 0
+    },
+    {
+      "_id": "671476b086b0227f0ad2d50b",
+      "fullName": "shraddha",
+      "emailId": "shraddha@test.com",
+      "phone": "7878787878",
+      "pancard": "AUNPC5676J",
+      "aadhar": "546765676567",
+      "salary": "20000",
+      "loan_amount_req": "1000",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "zipcode": "560010",
+      "status": "submitted",
+      "datecreated": "2024-10-20T03:19:12.417Z",
+      "dateupdated": "2024-10-20T03:19:12.608Z",
+      "reference_no": "VFL24026714762e600a2f001c4e12211",
+      "__v": 0
+    },
+    {
+      "_id": "6715d125d9bfbab3085cbda6",
+      "fullName": "CHAKRAPANI Upadhyaya",
+      "emailId": "chakrapani24@gmail.com",
+      "phone": "09886538081",
+      "pancard": "AUPC3247K",
+      "aadhar": "123456783456",
+      "salary": "200000",
+      "loan_amount_req": "20000",
+      "city": "Bangalore - Rajaji Nagara",
+      "state": "Karnataka",
+      "zipcode": "560010",
+      "status": "submitted",
+      "datecreated": "2024-10-21T03:57:25.400Z",
+      "dateupdated": "2024-10-21T03:57:25.607Z",
+      "reference_no": "VFL2402671476b086b0227f0ad2d50b1",
+      "__v": 0
+    },
+    {
+      "_id": "671617cf0d281a1ffc642745",
+      "fullName": "swapna",
+      "emailId": "swapna@test.com",
+      "phone": "8989898989",
+      "pancard": "AUNBV4567J",
+      "aadhar": "734678986543",
+      "salary": "200000",
+      "loan_amount_req": "10000",
+      "city": "Bangalore - Rajaji Nagara",
+      "state": "Karnataka",
+      "zipcode": "560010",
+      "status": "submitted",
+      "loginId": "swapna@test.com",
+      "password": "$2a$10$M2MbAK7qD7sYfW9zkzW4kejHUpiYtG0InW7.22drcIsztciWKS4/C",
+      "datecreated": "2024-10-21T08:58:55.898Z",
+      "dateupdated": "2024-10-21T08:58:56.295Z",
+      "reference_no": "VFL24026715d125d9bfbab3085cbda61",
+      "__v": 0
+    }
+  ],
+  "contacts": [
+    {
+      "_id": "6715e4bda4b72c815eed8d67",
+      "fullName": "CHAKRAPANI Upadhyaya",
+      "email": "chakrapani24@gmail.com",
+      "phone": "09886538081",
+      "message": "test",
+      "createdAt": "2024-10-21T05:21:01.618Z",
+      "__v": 0
+    },
+    {
+      "_id": "6716710693c0879142df79f1",
+      "fullName": "swapna",
+      "email": "swapna@test.com",
+      "phone": "7843837598",
+      "message": "i am unable to apply getting error Failed to submit loan application. Please try again later OR check your details.",
+      "createdAt": "2024-10-21T15:19:34.399Z",
+      "__v": 0
+    }
+  ],
+  "admins": [
+    {
+      "_id": "67133241e68ff585a310550c",
+      "userid": "U12346",
+      "fullname": "John Doe1",
+      "email": "johndoe1@example.com",
+      "phone": "1234567890",
+      "emailverified": true,
+      "phoneverified": true,
+      "loginid": "johndoe1213",
+      "password": "$2a$10$IZAFTPtGV3DgvCVYHlZu5eKb9hdD2zJ00PTyWksSmOnoicKikSh6u",
+      "status": "in-active",
+      "datecreated": "2024-10-19T04:14:57.630Z",
+      "__v": 0,
+      "dateupdated": "2024-10-21T08:52:34.486Z"
+    },
+    {
+      "_id": "67137609a1feb7f98bd8bcd1",
+      "userid": "shraddha",
+      "fullname": "shraddha u",
+      "email": "shraddha@email.com",
+      "phone": "9087986756",
+      "emailverified": false,
+      "phoneverified": false,
+      "loginid": "shraddha",
+      "password": "$2a$10$DWxe9458iPQJ.GdkeCDmCOmkhh9ajfTiSZ3xIGNMbfTsPsXGORc7i",
+      "status": "active",
+      "datecreated": "2024-10-19T09:04:09.615Z",
+      "__v": 0,
+      "dateupdated": "2024-10-21T04:41:19.625Z"
+    },
+    {
+      "_id": "6715f3c2ba8f8f67750239fd",
+      "userid": "chakrapani",
+      "fullname": "Chakrapani U",
+      "email": "chakrapani24@gmail.com",
+      "phone": "09886538081",
+      "emailverified": true,
+      "phoneverified": true,
+      "loginid": "chakrapani",
+      "password": "$2a$10$B0Lyu4/VYwQWqr7jFnOaTOFau.KW8zTdEfFZbV3kERoOD9x//3NTy",
+      "status": "active",
+      "datecreated": "2024-10-21T06:25:06.967Z",
+      "__v": 0,
+      "dateupdated": "2024-10-21T06:26:21.910Z"
+    }
+  ],
+  "loanuserkycs": []
+}
