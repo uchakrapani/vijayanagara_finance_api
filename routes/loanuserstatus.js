@@ -5,21 +5,21 @@ const LoanUserStatus = require("../models/LoanUserStatus");
 // Create LoanUserStatus
 router.post('/', async (req, res, next) => {
     try {
-        const loanUserStatusData = new LoanUserStatus(req.body);  // Use req.body directly
-        await loanUserStatusData.save();  // Save operation
+        const loanUserStatusData = new LoanUserStatus(req.body);
+        await loanUserStatusData.save();
         res.status(201).json(loanUserStatusData);
     } catch (err) {
-        next(err);  // Forward the error to the error-handling middleware
+        next(err);
     }
 });
 
 // Get All LoanUserStatus
 router.get('/', async (req, res, next) => {
     try {
-        const statuses = await LoanUserStatus.find().lean();  // Use lean() for performance
+        const statuses = await LoanUserStatus.find().lean();
         res.status(200).json(statuses);
     } catch (err) {
-        next(err);  // Forward the error to the error-handling middleware
+        next(err);
     }
 });
 
@@ -29,6 +29,17 @@ router.get('/:id', async (req, res, next) => {
         const status = await LoanUserStatus.findById(req.params.id);
         if (!status) return res.status(404).json({ message: 'LoanUserStatus not found' });
         res.json(status);
+    } catch (err) {
+        next(err);
+    }
+});
+
+// Get LoanUserStatus by LoanUser._id
+router.get('/user/:loanUserId', async (req, res, next) => {
+    try {
+        const statuses = await LoanUserStatus.find({ loanUserId: req.params.loanUserId }).lean();
+        if (statuses.length === 0) return res.status(404).json({ message: 'No statuses found for this LoanUser' });
+        res.json(statuses);
     } catch (err) {
         next(err);
     }
