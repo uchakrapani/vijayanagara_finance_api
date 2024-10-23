@@ -1,13 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const LoanUserStatus = require("../models/LoanUserStatus");
+const LoanUser = require("../models/LoanUser"); // Import the LoanUser model
 
 // Create LoanUserStatus
 router.post('/', async (req, res, next) => {
     try {
         const loanUserStatusData = new LoanUserStatus(req.body);
-        await loanUserStatusData.save();
-        res.status(201).json(loanUserStatusData);
+        
+        // Save the new LoanUserStatus
+        const status = await loanUserStatusData.save();
+
+        // Update the related LoanUser's status
+        await LoanUser.findByIdAndUpdate(status.loanUserId, { status: status.status }, { new: true });
+
+        res.status(201).json(status);
     } catch (err) {
         next(err);
     }
@@ -50,6 +57,10 @@ router.put('/:id', async (req, res, next) => {
     try {
         const status = await LoanUserStatus.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!status) return res.status(404).json({ message: 'LoanUserStatus not found' });
+
+        // Update the related LoanUser's status
+        await LoanUser.findByIdAndUpdate(status.loanUserId, { status: status.status }, { new: true });
+
         res.json(status);
     } catch (err) {
         next(err);

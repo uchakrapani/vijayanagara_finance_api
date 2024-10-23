@@ -16,7 +16,7 @@ router.post('/', async (req, res, next) => {
 // Get All Locations
 router.get('/', async (req, res, next) => {
     try {
-        const loanuser = await LoanUser.find().lean();  // Use async/await and lean() for performance
+        const loanuser = await LoanUser.find().populate('loanUserStatus').lean();  // Use async/await and lean() for performance
         res.status(200).json(loanuser);
     } catch (err) {
         next(err);  // Forward the error to the error-handling middleware
@@ -26,7 +26,7 @@ router.get('/', async (req, res, next) => {
 // Get a loanuser by ID
 router.get('/:id', async (req, res, next) => {
     try {
-        const loanuser = await LoanUser.findById(req.params.id);
+        const loanuser = await LoanUser.findById(req.params.id).populate('loanUserStatus');
         if (!loanuser) return res.status(404).json({ message: 'Loan User not found' });
         res.json(loanuser);
     } catch (err) {

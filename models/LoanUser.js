@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 // Define the LoanUser schema
 const loanUserSchema = mongoose.Schema({
     reference_no: { type: String, unique: true }, // Unique reference number
+    loanUserStatus: [{ type: mongoose.Schema.Types.ObjectId, ref: 'LoanUserStatus' }],
     fullName: { type: String, required: true },
     emailId: { type: String, unique: true, required: true }, // Unique email ID
     phone: { type: String, unique: true, required: true },   // Unique phone number
