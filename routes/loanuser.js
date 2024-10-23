@@ -34,6 +34,30 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+// Fetch Loan User by emailId, reference_no, or phone
+router.get('/userreq', async (req, res, next) => {
+    const { emailId, reference_no, phone } = req.query;
+
+    try {
+        // Construct query object based on provided parameters
+        const query = {};
+        if (emailId) query.emailId = emailId;
+        if (reference_no) query.reference_no = reference_no;
+        if (phone) query.phone = phone;
+
+        // Find loan user with populated loanUserStatus
+        const loanUser = await LoanUser.findOne(query).populate('loanUserStatus');
+        
+        if (!loanUser) {
+            return res.status(404).json({ message: 'Loan User not found' });
+        }
+
+        res.json(loanUser);
+    } catch (err) {
+        next(err);
+    }
+});
+
 // Update a loanuser
 router.put('/:id', async (req, res, next) => {
     try {
